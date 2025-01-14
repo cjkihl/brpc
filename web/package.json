@@ -10,10 +10,11 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"server": "workspace:*",
 		"@trpc/client": "^10.45.2",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react-dom": "^19.0.0",
+		"react-hot-toast": "^2.5.1",
+		"server": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/react": "^19.0.0",

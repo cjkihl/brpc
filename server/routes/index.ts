@@ -7,9 +7,11 @@ import { authRoute } from "./auth";
  * and one protected procedure (protected)
  */
 export const router = trpc.router({
-	auth: authRoute,
-	ping: publicProcedure.query(() => "pong"),
-	protected: protectedProcedure.query(() => "Nice, you remembered your token!"),
+  auth: authRoute,
+  ping: publicProcedure.query(() => "pong"),
+  protected: protectedProcedure.query(
+    ({ ctx }) => `Thank you for your token "${ctx.token}"`
+  ),
 });
 
 export type AppRouter = typeof router;

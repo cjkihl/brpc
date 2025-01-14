@@ -8,9 +8,9 @@ import { ZodError } from "zod";
  * In this example, we parse the Bearer token from the request headers
  */
 export const createContext = async ({ req }: FetchCreateContextFnOptions) => {
-	// Example of how to use context. Here we parse the Bearer token
-	const token = req.headers.get("authorization")?.replace("Bearer ", "");
-	return { token };
+  // Example of how to use context. Here we parse the Bearer token
+  const token = req.headers.get("authorization")?.replace("Bearer ", "");
+  return { token };
 };
 
 type Context = Awaited<ReturnType<typeof createContext>>;
@@ -19,19 +19,19 @@ type Context = Awaited<ReturnType<typeof createContext>>;
  * Initialize tRPC with a custom error formatter for zod errors
  */
 export const trpc = initTRPC.context<Context>().create({
-	errorFormatter(opts) {
-		const { shape, error } = opts;
-		return {
-			...shape,
-			data: {
-				...shape.data,
-				zodError:
-					error.code === "BAD_REQUEST" && error.cause instanceof ZodError
-						? error.cause?.flatten()
-						: null,
-			},
-		};
-	},
+  errorFormatter(opts) {
+    const { shape, error } = opts;
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.code === "BAD_REQUEST" && error.cause instanceof ZodError
+            ? error.cause?.flatten()
+            : null,
+      },
+    };
+  },
 });
 
 /**
@@ -39,23 +39,23 @@ export const trpc = initTRPC.context<Context>().create({
  * In a real application, you would use a more secure method to verify tokens
  */
 const enforceValidToken = trpc.middleware(({ ctx, next }) => {
-	if (!ctx.token) {
-		throw new TRPCError({
-			code: "UNAUTHORIZED",
-			message: "You need a bearer token to use this feature",
-		});
-	}
+  if (!ctx.token) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "You need a bearer token to use this feature",
+    });
+  }
 
-	if (ctx.token !== "secret") {
-		throw new TRPCError({
-			code: "UNAUTHORIZED",
-			message: "Invalid token",
-		});
-	}
+  if (ctx.token !== "secret") {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "Invalid token",
+    });
+  }
 
-	return next({
-		ctx,
-	});
+  return next({
+    ctx,
+  });
 });
 
 /**
@@ -63,12 +63,12 @@ const enforceValidToken = trpc.middleware(({ ctx, next }) => {
  * Useful for debugging performance issues
  */
 const logTime = trpc.middleware(async ({ ctx, next, path, type }) => {
-	const start = performance.now(); // get start time
-	const response = next({ ctx }); // call the next middleware or procedure
-	const end = performance.now(); // get end time
-	const timeTaken = Number(end - start) / 1e6; // calculate time taken in milliseconds
-	console.log(`Procedure ${type} ${path} took ${timeTaken} ms`);
-	return response;
+  const start = performance.now(); // get start time
+  const response = next({ ctx }); // call the next middleware or procedure
+  const end = performance.now(); // get end time
+  const timeTaken = Number(end - start) / 1e6; // calculate time taken in milliseconds
+  console.log(`Procedure ${type} ${path} took ${timeTaken} ms`);
+  return response;
 });
 
 /**

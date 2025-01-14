@@ -1,16 +1,21 @@
 {
-	"name": "server",
-	"exports": {
-		".": {
-			"types": "./routes/index.ts"
-		}
-	},
-	"type": "module",
-	"devDependencies": {
-		"@types/bun": "latest",
-		"@trpc/server": "^10.45.2"
-	},
-	"dependencies": {
-		"zod": "^3.24.1"
-	}
+  "name": "server",
+  "exports": {
+    ".": {
+      "types": "./routes/index.ts"
+    }
+  },
+  "scripts": {
+    "dev": "bun --watch ./index.ts",
+    "build": "turbo build",
+    "format": "biome check --write --unsafe ."
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@trpc/server": "^10.45.2"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
 }
