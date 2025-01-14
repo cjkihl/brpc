@@ -1,0 +1,19 @@
+{
+	"name": "brpc",
+	"private": true,
+	"module": "index.ts",
+	"type": "module",
+	"workspaces": ["web", "server"],
+	"scripts": {
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"format": "biome check --write --unsafe ."
+	},
+	"packageManager": "bun@1.1.42",
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@biomejs/biome": "1.9.4",
+		"turbo": "2.3.3",
+		"typescript": "5.7.2"
+	}
+}
