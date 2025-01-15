@@ -46,8 +46,10 @@ A lightweight, minimal RPC framework using tRPC running on Bun's native server.
 # Clone the repository
 git clone https://github.com/cjkihl/brpc.git
 
-# Install dependencies
-bun install
+# Install dependencies.
+# (Use text based lock file for turborepo to work)
+bun install --save-text-lockfile
+
 
 # Start development servers
 bun dev
